@@ -1,0 +1,12 @@
+.idea
+.ipynb_checkpoints
+venv
+
+*.py[cod]
+.DS_Store
+.env
+Thumbs.db
+
+capybarahermes-2.5-mistral-7b.Q4_K_M.gguf
+Cory_Doctorow_-_Pirate_Cinema.txt
+embeddings/Cory_Doctorow_-_Pirate_Cinema.txt.json

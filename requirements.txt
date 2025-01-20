@@ -1,0 +1,8 @@
+dspy==2.5.43
+fuzzywuzzy==0.18.0
+ipywidgets==8.1.5
+jupyterlab==4.3.4
+pandas==2.2.3
+python-dotenv==1.0.1
+python-Levenshtein==0.26.1
+torch==2.5.1
