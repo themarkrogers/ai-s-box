@@ -8,7 +8,7 @@ system_prompt = tg.Variable("You are a helpful language model. Think step by ste
                             role_description="system prmp to the language model")
 
 # Set up the model object 'parameterized by' the prompt.
-model = tb.GlackBoxLLM(system_prompt=system_prompt)
+model = tg.GlackBoxLLM(system_prompt=system_prompt)
 
 # Optimize the system prompt
 optimizer = tg.TextualGradientDescent(parameters=[system_prompt])
@@ -23,4 +23,4 @@ for iteration in range(max_iterations):
     # Do the backward pass and compute gradients
     total_loss.backward()
     # Update the system prompt
-    optmiizer.step()
+    optimizer.step()
