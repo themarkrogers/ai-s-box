@@ -13,6 +13,8 @@ from typing import Any
 from dspy.teleprompt import BootstrapFewShot
 import dspy
 
+from src.evaluate_s_box import evaluate_s_box
+
 
 class CryptographicSBoxQA(dspy.Signature):
     """
@@ -23,8 +25,8 @@ class CryptographicSBoxQA(dspy.Signature):
     answer = dspy.OutputField(desc="a python3 function that returns a list[list[str]]")
 
 
-def evaluate_s_box(s_box: list[list[str]]) -> float:
-    ...
+# def evaluate_s_box(s_box: list[list[str]]) -> float:
+#     ...
 
 
 class CryptographicSBoxModule(dspy.Module):
