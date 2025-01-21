@@ -1,14 +1,15 @@
 # https://www.youtube.com/watch?v=Qks4UEsRwl0
 
-import TextGrad as tg
+import textgrad as tg
 
 # Initialize the system prompt
 system_prompt = tg.Variable("You are a helpful language model. Think step by step.",
                             requires_grad=True,
-                            role_description="system prmp to the language model")
+                            role_description="system prompt to the language model")
 
 # Set up the model object 'parameterized by' the prompt.
-model = tg.GlackBoxLLM(system_prompt=system_prompt)
+llm_engine = tg.get_engine("gpt-3.5-turbo")
+model = tg.BlackBoxLLM(llm_engine, system_prompt=system_prompt)
 
 # Optimize the system prompt
 optimizer = tg.TextualGradientDescent(parameters=[system_prompt])

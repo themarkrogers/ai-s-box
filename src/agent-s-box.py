@@ -5,6 +5,7 @@ sys.path.append('/~/Documents/Repos/prosaic/s-box/')
 from src.utils import get_s_box_for
 
 
+
 def main() -> None:
     input_length = 3
     output_length = 3
