@@ -34,11 +34,9 @@ class MultiHopQAWithAssertions(dspy.Module):
         for hop in range(2):
             query = self.generate_query(context=context, question=question).query
 
-            dspy.Suggest(len(query) < 100,
-                         "Query should be less than 100 characters")
+            dspy.Suggest(len(query) < 100, "Query should be less than 100 characters")
 
-            dspy.Suggest(is_distinct_query(query, queries),
-                         f"Query should be distinct from {queries}")
+            dspy.Suggest(is_distinct_query(query, queries), f"Query should be distinct from {queries}")
 
             context += self.retrieve(query).passages
             queries += query
@@ -50,7 +48,9 @@ class LongFormQAWithAssertions(dspy.Module):
         super().__init__()
         self.retrieve = dspy.Retrieve(k=passages_per_hop)
         self.generate_query = dspy.ChainOfThought("context, question -> query")
-        self.generate_cited_paragraph = dspy.ChainOfThought("context, question -> paragraph")  # better with field description
+        self.generate_cited_paragraph = dspy.ChainOfThought(
+            "context, question -> paragraph"
+        )  # better with field description
 
     def forward(self, question):
         context = []
@@ -60,8 +60,7 @@ class LongFormQAWithAssertions(dspy.Module):
             context += self.retrieve(query).passages
 
         pred = self.generate_cited_paragraph(context=context, question=question)
-        dspy.Suggest(citations_check(pred.paragraph),
-                     "Every 1-2 sentences should have citations: 'text... [x].'")
+        dspy.Suggest(citations_check(pred.paragraph), "Every 1-2 sentences should have citations: 'text... [x].'")
 
         for line, citation in get_lines_and_citations(pred, context):
             dspy.Suggest(is_faithful(line, citation), f"Your output should be based on the context: '{citations}'")
@@ -94,10 +93,9 @@ class ProcessEmails(dspy.Module):
             if self.podcast_email(emails):
                 research_query = self.generate_query(email)
                 research_contexts = self.you_retriever(research_query)
-                podcast_outlines.append({
-                    "email": email,
-                    "outline_proposal": self.podcast_outline(email, research_contexts)
-                })
+                podcast_outlines.append(
+                    {"email": email, "outline_proposal": self.podcast_outline(email, research_contexts)}
+                )
         return podcast_outlines
 
 
@@ -149,7 +147,8 @@ class SimplifiedBootstrapFewShot(Teleprompter):
         # Step 2: Bootstrap traces for each Predict module.
         # We'll loop over the training set. We'll try each example once for simplicity.
         for example in trainset:
-            if we_found_enough_bootstrapped_demos(): break
+            if we_found_enough_bootstrapped_demos():
+                break
 
             # turn on compiling mode which will allow us to keep track of the traces
             with dspy.settings.context(compiling=True):

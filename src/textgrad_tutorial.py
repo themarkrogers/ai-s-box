@@ -3,9 +3,11 @@
 import textgrad as tg
 
 # Initialize the system prompt
-system_prompt = tg.Variable("You are a helpful language model. Think step by step.",
-                            requires_grad=True,
-                            role_description="system prompt to the language model")
+system_prompt = tg.Variable(
+    "You are a helpful language model. Think step by step.",
+    requires_grad=True,
+    role_description="system prompt to the language model",
+)
 
 # Set up the model object 'parameterized by' the prompt.
 llm_engine = tg.get_engine("gpt-3.5-turbo")

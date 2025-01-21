@@ -6,11 +6,11 @@ import ollama
 
 
 def create_system_prompt():
-    with open('../data/rijndael-8-forward.tsv', 'r') as known_s_box_1_file:
+    with open("../data/rijndael-8-forward.tsv", "r") as known_s_box_1_file:
         known_s_box_1 = known_s_box_1_file.readlines()
-    with open('../data/rijndael-8-reverse.tsv', 'r') as known_s_box_2_file:
+    with open("../data/rijndael-8-reverse.tsv", "r") as known_s_box_2_file:
         known_s_box_2 = known_s_box_2_file.readlines()
-    with open('../data/system_prompt.txt', 'r') as system_prompt_file:
+    with open("../data/system_prompt.txt", "r") as system_prompt_file:
         raw_system_prompt = system_prompt_file.read()
 
     system_prompt = raw_system_prompt.format(example_sbox_1=known_s_box_1, example_sbox_2=known_s_box_2)
@@ -37,10 +37,8 @@ def get_llm_response_for_prompt(system_prompt: str, user_prompt: str, model: Any
             {
                 "role": "system",
                 "content": system_prompt,
-            }, {
-                "role": "user",
-                "content": user_prompt
             },
+            {"role": "user", "content": user_prompt},
         ],
     )
     response_text = response["message"]["content"]

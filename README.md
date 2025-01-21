@@ -41,3 +41,15 @@ Useful AI links:
 * [DSPy tutorial 1](https://www.youtube.com/watch?v=41EfOY0Ldkc)
 * [DSPy tutorial 2](https://www.youtube.com/watch?v=_ROckQHGHsU)
 * [TextGrad tutorial](https://www.youtube.com/watch?v=Qks4UEsRwl0)
+
+
+# Maintenance
+
+## Linting
+
+```
+black .
+mypy .
+flake8 .
+pylint .
+```

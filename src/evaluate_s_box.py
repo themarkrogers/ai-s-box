@@ -1,12 +1,12 @@
 def compute_ddt(sbox, n_bits, num_output_length: int):
     """Compute XOR-based difference distribution table for a bitwise S-box."""
-    size = 2 ** n_bits
+    size = 2**n_bits
     # range size could be up to 2^m
     # We'll index DDT as DDT[input_diff][output_diff].
     # We'll find the maximum possible output_diff by checking the S-box outputs.
     max_sbox_out = max(sbox)
     # but to be safe, let's assume up to 2^num_output_length
-    out_size = 2 ** num_output_length
+    out_size = 2**num_output_length
 
     ddt = [[0] * out_size for _ in range(size)]
 
@@ -23,8 +23,8 @@ def compute_ddt(sbox, n_bits, num_output_length: int):
 
 def compute_walsh_hadamard(sbox, n_in, n_out):
     """Compute the Walsh-Hadamard transform for an n_in->n_out bit S-box."""
-    size_in = 2 ** n_in
-    size_out = 2 ** n_out
+    size_in = 2**n_in
+    size_out = 2**n_out
 
     # We only compute up to the max output observed if it's smaller
     actual_max_out = max(sbox)
@@ -39,13 +39,13 @@ def compute_walsh_hadamard(sbox, n_in, n_out):
             total = 0
             for x in range(size_in):
                 # dot product in GF(2) for alpha, x
-                ax = bin(alpha & x).count('1') % 2
+                ax = bin(alpha & x).count("1") % 2
                 # dot product in GF(2) for beta, sbox[x]
-                bs = bin(beta & sbox[x]).count('1') % 2
+                bs = bin(beta & sbox[x]).count("1") % 2
                 # exponent
                 exponent = ax ^ bs
                 # (-1)^exponent is +1 if exponent=0, -1 if exponent=1
-                total += (1 if exponent == 0 else -1)
+                total += 1 if exponent == 0 else -1
             wht[(alpha, beta)] = total
 
     return wht
@@ -62,15 +62,12 @@ def is_bent(n_in, n_out, max_corr):
     # is 2^(n/2). Normalized correlation would then be 2^(n/2) / 2^n = 2^(-n/2).
     # So if max_corr (non-normalized) = 2^(n/2), that means normalized is 2^(-n/2).
     expected_non_normalized = 2 ** (n_in // 2)
-    actual_non_normalized = max_corr * (2 ** n_in)
+    actual_non_normalized = max_corr * (2**n_in)
     return abs(actual_non_normalized - expected_non_normalized) < 1e-9
 
 
 def evaluate_s_box(
-    s_box: list[list[str]],
-    num_input_length: int,
-    num_output_length: int,
-    num_unique_symbols: int
+    s_box: list[list[str]], num_input_length: int, num_output_length: int, num_unique_symbols: int
 ) -> dict:
     """
     Evaluate and score an S-box based on:
@@ -131,14 +128,14 @@ def evaluate_s_box(
 
     # Quick check: does domain_size match 2^(num_input_length)?
     # This is the standard assumption for an n-bit S-box.
-    expected_domain_size = 2 ** num_input_length
-    domain_consistency = (domain_size == expected_domain_size)
+    expected_domain_size = 2**num_input_length
+    domain_consistency = domain_size == expected_domain_size
 
     # Also figure out the largest integer in sbox_list to gauge the range
     max_output_value = max(sbox_list) if sbox_list else 0
     # Potential range size is max_output_value+1, but let's see if it is 2^(num_output_length)
-    expected_range_size = 2 ** num_output_length
-    range_consistency = (max_output_value < expected_range_size)
+    expected_range_size = 2**num_output_length
+    range_consistency = max_output_value < expected_range_size
 
     # -------------------------------------------------------------------------
     # 2. Compute the Difference Distribution Table (DDT)
@@ -151,9 +148,7 @@ def evaluate_s_box(
         # For differential uniformity, we often look at the max count
         # of nonzero input difference dx != 0.
         max_ddt_entry = max(
-            ddt[dx][dy]
-            for dx in range(1, len(ddt))  # skip dx=0 in some definitions
-            for dy in range(len(ddt[dx]))
+            ddt[dx][dy] for dx in range(1, len(ddt)) for dy in range(len(ddt[dx]))  # skip dx=0 in some definitions
         )
     else:
         # If we cannot do standard XOR-based, we skip or do a fallback.
@@ -175,7 +170,7 @@ def evaluate_s_box(
         # max absolute correlation:
         max_correlation = max(abs(v) for v in wht.values()) if wht else 0
         # Normalized by the domain size:
-        max_linear_correlation = max_correlation / (2 ** num_input_length)
+        max_linear_correlation = max_correlation / (2**num_input_length)
     else:
         # Not well-defined if input or output domain isn't a standard 2^n
         pass

@@ -27,9 +27,9 @@ def test_evaluate_s_box_with_aes():
     # ToDo, it should be possible to infer the input_length, output_length, and num_unique_symbols from the s_box
     aes_metrics = evaluate_s_box(
         s_box=aes_s_box,
-        num_input_length=8,      # AES uses 8-bit inputs
-        num_output_length=8,     # AES uses 8-bit outputs
-        num_unique_symbols=16    # (this is the base 16 representation, but not crucial here)
+        num_input_length=8,  # AES uses 8-bit inputs
+        num_output_length=8,  # AES uses 8-bit outputs
+        num_unique_symbols=16,  # (this is the base 16 representation, but not crucial here)
     )
     print("AES S-box evaluation:")
     for k, v in aes_metrics.items():
@@ -40,16 +40,84 @@ def test_evaluate_s_box_with_aes():
     # DES example (short snippet). The real DES has 8 S-boxes, each 6->4 bits,
     # but let's just show how the flattening might work with your example:
     des_s_box = [
-        ["0010", "1100", "0100", "0001", "0111", "1010", "1011", "0110", "1000", "0101", "0011", "1111", "1101", "0000", "1110", "1001"],
-        ["1110", "1011", "0010", "1100", "0100", "0111", "1101", "0001", "0101", "0000", "1111", "1010", "0011", "1001", "1000", "0110"],
-        ["0100", "0010", "0001", "1011", "1010", "1101", "0111", "1000", "1111", "1001", "1100", "0101", "0110", "0011", "0000", "1110"],
-        ["1011", "1000", "1100", "0111", "0001", "1110", "0010", "1101", "0110", "1111", "0000", "1001", "1010", "0100", "0101", "0011"],
+        [
+            "0010",
+            "1100",
+            "0100",
+            "0001",
+            "0111",
+            "1010",
+            "1011",
+            "0110",
+            "1000",
+            "0101",
+            "0011",
+            "1111",
+            "1101",
+            "0000",
+            "1110",
+            "1001",
+        ],
+        [
+            "1110",
+            "1011",
+            "0010",
+            "1100",
+            "0100",
+            "0111",
+            "1101",
+            "0001",
+            "0101",
+            "0000",
+            "1111",
+            "1010",
+            "0011",
+            "1001",
+            "1000",
+            "0110",
+        ],
+        [
+            "0100",
+            "0010",
+            "0001",
+            "1011",
+            "1010",
+            "1101",
+            "0111",
+            "1000",
+            "1111",
+            "1001",
+            "1100",
+            "0101",
+            "0110",
+            "0011",
+            "0000",
+            "1110",
+        ],
+        [
+            "1011",
+            "1000",
+            "1100",
+            "0111",
+            "0001",
+            "1110",
+            "0010",
+            "1101",
+            "0110",
+            "1111",
+            "0000",
+            "1001",
+            "1010",
+            "0100",
+            "0101",
+            "0011",
+        ],
     ]
     des_metrics = evaluate_s_box(
         s_box=des_s_box,
-        num_input_length=6,   # typical for DES S-box input
+        num_input_length=6,  # typical for DES S-box input
         num_output_length=4,  # typical for DES S-box output
-        num_unique_symbols=2  # they're binary strings, so base=2 representation
+        num_unique_symbols=2,  # they're binary strings, so base=2 representation
     )
     print("DES S-box evaluation:")
     for k, v in des_metrics.items():

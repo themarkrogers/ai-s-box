@@ -8,6 +8,7 @@ Make a dspy.Module that leverages that Signature
 * Iterate until a few candidate s-boxes are generated
 * Write those to disk (as we validate each one)
 """
+
 from typing import Any
 
 from dspy.teleprompt import BootstrapFewShot

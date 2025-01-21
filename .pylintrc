@@ -1,0 +1,3 @@
+[MASTER]
+ignore=venv,htmlcov
+max-line-length=120
