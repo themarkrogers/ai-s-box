@@ -23,10 +23,11 @@ class CryptographicSBoxQA(dspy.Signature):
     """
 
     question = dspy.InputField(desc="input_length: int, output_length: int, num_unique_symbols: int")
-    answer = dspy.OutputField(desc="a python3 function that returns a list[list[str]]")
+    # answer = dspy.OutputField(desc="a python3 function that returns a list[list[str]]")
+    answer = dspy.OutputField(desc="a list[list[str]]")
 
 
-# def evaluate_s_box(s_box: list[list[str]]) -> float:
+# def evaluate_s_box_code(s_box_function: func) -> float:
 #     ...
 
 
